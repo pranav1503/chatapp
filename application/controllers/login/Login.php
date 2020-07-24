@@ -1,18 +1,18 @@
 <?php
     class Login extends CI_Controller{
 
-        public function index()        
-        {            
+        public function index()
+        {
             $data["success"]='';
             $this->load->view('login/login',$data);
         }
-        
+
         public function form_val()
         {
-            
+
             $email_id = $this->input->post('email_id');
             $password = $this->input->post('password');
-            
+
             $curl = curl_init();
             $data = array('email_id' => $email_id,'password' => $password);
             $postData = "";
@@ -55,7 +55,7 @@
                     'last_active' => $response['last_active'],
                 );
                 $this->session->set_userdata($session_data);
-                redirect(base_url()."todo/home");    
+                redirect(base_url()."dashboard/dashboard");    
             }
             else if($response['status']==0){
                 $this->session->set_flashdata("login_msg","Please Enter Correct Email-id and Password.");
@@ -64,7 +64,7 @@
             else{
                 echo "hello";
             }
-            
+
         }
 
     }

@@ -2,9 +2,9 @@
   $this->load->helper('url');
   $this->load->library('session');
   $user = $this->session->all_userdata();
-  // if(empty($user['username'])){
-  //   redirect(base_url());
-  // }
+  if(empty($user['name'])){
+    redirect(base_url());
+  }
  ?>
 <!DOCTYPE html>
 <html>
@@ -119,7 +119,7 @@
         <a href="#" class="nav-link">Contact</a>
       </li> -->
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url() ?>/home/logout" class="nav-link">Logout</a>
+        <a href="<?php echo base_url() ?>/login/logout" class="nav-link">Logout</a>
       </li>
     </ul>
 
@@ -252,12 +252,12 @@
                 $pic_url = base_url() . "back_static/profile/teacher/";
               }
            ?>
-          <img src="<?php echo $pic_url; ?><?php echo $user['profile_pic']; ?>" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo $pic_url; ?><?php echo $user['photo']; ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
             <?php
-              echo ucwords($user['username']);
+              echo ucwords($user['name']);
             ?>
           </a>
         </div>
@@ -275,12 +275,17 @@
           <?php
               if ($user['type'] == "student") {
            ?>
-
+           <li class="nav-item">
+             <a href="<?php echo base_url(); ?>user/details" class="nav-link">
+               <i class="fas fa-question-circle nav-icon"></i>
+               <p>Your Questions</p>
+             </a>
+           </li>
 
         <?php } ?>
 
         <?php
-            if ($user['type'] == "user") {
+            if ($user['type'] == "teacher") {
          ?>
 
 
@@ -288,7 +293,7 @@
 
   <!-- <li class="nav-header">SETTINGS</li> -->
   <li class="nav-item">
-    <a href="<?php echo base_url() ?>/home/logout" class="nav-link">
+    <a href="<?php echo base_url() ?>/login/logout" class="nav-link">
       <i class="fas fa-sign-out-alt"></i>
       <p class="text">Logout</p>
     </a>
