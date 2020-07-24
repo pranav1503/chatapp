@@ -22,24 +22,32 @@ class Login extends REST_Controller{
             foreach ($query->result() as $row)
                 continue;
             $id = $row->id;
-            $name = $row->first_name;
-            $email_id = $row->email_id;
+            $name = $row->name;
+            $email_id = $row->email;
             $pass = $row->password;
-            $phone_no = $row->phone_no;
-            $this->load->library('encryption');
-            $this->encryption->initialize(
-                array(
-                    'cipher' => 'aes-256',
-                    'mode' => 'ctr',
-                )
-            );
-            $pass =  $this->encryption->decrypt($pass);
+            $phone_no = $row->phone;
+            $type = $row->type;
+            $dept = $row->dept;
+            $photo = $row->photo;
+            $last_active = $row->last_active;
+//            $this->load->library('encryption');
+//            $this->encryption->initialize(
+//                array(
+//                    'cipher' => 'aes-256',
+//                    'mode' => 'ctr',
+//                )
+//            );
+//            $pass =  $this->encryption->decrypt($pass);
             if($password==$pass){
                 $session_data = array(
                 'id' => $id,
                 'name' => $name,
                 'email_id' => $email_id,
-                'phone_no' => $phone_no,                
+                'phone_no' => $phone_no,
+                'type' => $type,
+                'photo' => $photo,
+                'dept' => $dept,
+                'last_active' => $last_active,
             );
             $this->session->set_userdata($session_data);
             $this->response([
@@ -47,6 +55,10 @@ class Login extends REST_Controller{
                 'id' => $id,
                 'name' => $name,
                 'password' =>$pass,
+                'type' => $type,
+                'photo' => $photo,
+                'dept' => $dept,
+                'last_active' => $last_active,
            'message' => 'Logged In Successfully.',
             ],REST_Controller::HTTP_OK);
             

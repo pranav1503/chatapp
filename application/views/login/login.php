@@ -1,9 +1,9 @@
 <!--
 <?php
-$user = $this->session->all_userdata();
-if($user['id']!=""){
-    redirect(base_url()."todo/home");
-}
+//$user = $this->session->all_userdata();
+//if($user['id']!=""){
+//    redirect(base_url()."todo/home");
+//}
 ?>-->
 <!DOCTYPE html>
 <html lang="zxx">
