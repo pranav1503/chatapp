@@ -1,10 +1,10 @@
 <!--
 <?php
 
-$user = $this->session->all_userdata();
-if($user['id']!=""){
-    redirect(base_url()."todo/home");
-}
+//$user = $this->session->all_userdata();
+//if($user['id']!=""){
+//    redirect(base_url()."todo/home");
+//}
 
 ?>-->
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ if($user['id']!=""){
 
     <body style="background-color:#26262D;">
         <!-- header -->
-        <?php include __DIR__."/../todo/header.php" ?>
+        <?php include __DIR__."/../login/header.php" ?>
         <!-- //header -->
         <!-- page details -->
         <div class="breadcrumb-agile">
@@ -117,18 +117,20 @@ if($user['id']!=""){
                                               <p class="text-danger"><?php echo form_error("email_id"); ?></p>
                                               <p class="text-danger"><?php echo form_error("phone_no"); ?></p>
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="dipro" for="first_name">First Name</label>
-                                                            <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Enter First Name"required>
+                                                            <label class="dipro" for="name">Full Name</label>
+                                                            <input class="form-control" type="text" name="name" id="name" placeholder="Enter Name"required>
                                                         </div>
                                                     </div>
+<!--
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="last_name">Last Name</label>
                                                             <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Enter Last Name" required>
                                                         </div>
                                                     </div>
+-->
                                                     </div>
                                                     <div class="row">
                                                     <div class="col-sm-12">
@@ -140,11 +142,31 @@ if($user['id']!=""){
                                                     </div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">                                                    
+                                                            <label for="dept">Department</label>
+                                                            <select name="dept" class="form-control">
+                                                              <option name="dept" value="ECE">ECE</option>
+                                                              <option name="dept" value="CSE">CSE</option>
+                                                              <option name="dept" value="TCE">TCE</option>
+                                                              <option name="dept" value="EEE">EEE</option>
+                                                              <option name="dept" value="ME">ME</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                          <div class="form-group">
                                                             <label for="phone_no">Phone Number</label>
                                                             <input class="form-control" type="number" name="phone_no" id="phone_no" placeholder="Enter Phone Number"required>
                                                         </div>
+                                                                             
+                                                                                                                   
+<!--
+                                                        <div class="form-group">
+                                                            <label for="type">Type</label>
+                                                            <input class="form-control" type="text" name="type" id="type" placeholder="Enter Department"required>
+                                                        </div>
+-->
                                                     </div>
                                                     </div>
                                                     <div class="row">
@@ -161,6 +183,24 @@ if($user['id']!=""){
                                                         </div>
                                                     </div>
                                                     </div>
+                                                    <div class="row">
+                                                    <div class="col-sm-6">
+                                                       
+                                                       <div class="custom-control custom-radio custom-control-inline">
+                                                          <input type="radio" name="type" value="student" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample" checked>
+                                                          <label class="custom-control-label" for="defaultInline1">Student</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <!-- Default inline 2-->
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                          <input type="radio" name="type" value="teacher" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
+                                                          <label class="custom-control-label" for="defaultInline2">Teacher</label>
+                                                        </div>
+
+                                                    </div>
+                                                    </div>
+                                                    
                                                     <div class="row">
                                                      <div class="col-md-12" style="margin-bottom:10px">
                                                         <button type="submit" name="insert" value="Insert" id="buttn" style="background-color:#e8c00c;" class="btn float-right btn-block">Sign Up</button>
@@ -180,7 +220,7 @@ if($user['id']!=""){
         </section>
         <!-- //banner-botttom -->
         <!-- footer -->
-        <?php include __DIR__."/../todo/footer.php"?>
+        <?php include __DIR__."/../login/footer.php"?>
         <!-- //footer -->
     </body>
 </html>

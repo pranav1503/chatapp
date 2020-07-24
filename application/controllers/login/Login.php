@@ -49,6 +49,7 @@
                 $session_data = array(
                     "id" => $response['id'],
                     "name" => $response['name'],
+                    "phone_no" => $response['phone_no'],
                     'email_id' => $response["email_id"],                    
                     'type' => $response['type'],
                     'photo' => $response['photo'],
