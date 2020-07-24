@@ -15,9 +15,22 @@
 
     function ask()
     {
-
-      // echo $this->input->post("student");
+      $arr = array(
+        "question" => $this->input->post("question"),
+        "teacher" => $this->input->post("teacher"),
+        "description" => $this->input->post("description"),
+        "student" => $this->input->post("student")
+      );
+      $this->load->model("Dashboard_model");
+      $id = $this->Dashboard_model->askQuestion($arr);
+      echo $id;
     }
+
+    function question($qid)
+    {
+      echo $qid;
+    }
+
   }
 
  ?>
