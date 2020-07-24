@@ -22,6 +22,19 @@ class Dashboard_model extends CI_Model
     }
     return $teachers;
   }
+
+  function askQuestion($arr)
+  {
+    $this->db->insert("questions",$arr);
+    $query = $this->db->query("SELECT * from questions order by id desc limit 1");
+    if($query->num_rows()>0){
+        $id = -1;
+        foreach ($query->result() as $key => $value) {
+          $id = $value->id;
+        }
+        return $id;
+    }
+  }
 }
 
  ?>

@@ -239,7 +239,7 @@
                      "student" : "<?php echo $user['email_id']; ?>"
                    },
                    success:function (data) {
-                     alert(data);
+                     window.location.href = "<?php echo base_url()."question/"; ?>"+data;
                    },
                    error: function() {
                      alert("Error");
