@@ -8,7 +8,7 @@ class Login extends REST_Controller{
     public function __construct(){
         parent::__construct();
 
-        $this->load->model('signups');        
+        $this->load->model('signups');
        // $this->load->library('session');
     }
 
@@ -17,13 +17,12 @@ class Login extends REST_Controller{
     {
         $email_id = $this->input->post('email_id');
         $password = $this->input->post('password');
-        $query = $this->signups->login_check($email_id); 
+        $query = $this->signups->login_check($email_id);
         if($query->num_rows()>0){
             foreach ($query->result() as $row)
                 continue;
             $id = $row->id;
             $name = $row->name;
-            $email_id = $row->email;
             $pass = $row->password;
             $phone_no = $row->phone;
             $type = $row->type;
@@ -54,6 +53,7 @@ class Login extends REST_Controller{
                 'status' => true,
                 'id' => $id,
                 'name' => $name,
+                'email_id' => $email_id,
                 'password' =>$pass,
                 'type' => $type,
                 'photo' => $photo,
@@ -61,32 +61,32 @@ class Login extends REST_Controller{
                 'last_active' => $last_active,
            'message' => 'Logged In Successfully.',
             ],REST_Controller::HTTP_OK);
-            
+
             }
             else{
                 $this->response([
                 'status' => false,
                 'password' =>$pass,
            'message' => 'Failed.',
-        ],REST_Controller::HTTP_OK); 
-                
+        ],REST_Controller::HTTP_OK);
+
             }
-            
-            
-                
-        }   
+
+
+
+        }
         else{
 //            $this->session->set_flashdata('error','Invalid USer Name and Password');
             $this->response([
                 'status' => false,
            'message' => 'Failed.',
-        ],REST_Controller::HTTP_OK); 
+        ],REST_Controller::HTTP_OK);
         }
-             
+
     }
 
-   
-    
+
+
 }
 
 ?>

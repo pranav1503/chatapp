@@ -49,13 +49,14 @@
                 $session_data = array(
                     "id" => $response['id'],
                     "name" => $response['name'],
+                    'email_id' => $response["email_id"],                    
                     'type' => $response['type'],
                     'photo' => $response['photo'],
                     'dept' => $response['dept'],
                     'last_active' => $response['last_active'],
                 );
                 $this->session->set_userdata($session_data);
-                redirect(base_url()."dashboard/dashboard");    
+                redirect(base_url()."dashboard/dashboard");
             }
             else if($response['status']==0){
                 $this->session->set_flashdata("login_msg","Please Enter Correct Email-id and Password.");
