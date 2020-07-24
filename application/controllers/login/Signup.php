@@ -11,21 +11,23 @@
             
             $this->load->library('form_validation');
             
-            $this->form_validation->set_rules("first_name", "First Name", "required");
-            $this->form_validation->set_rules("last_name", "Last Name", "required");
-            $this->form_validation->set_rules("email_id", "E-Mail", "required|is_unique[login.email_id]");
-            $this->form_validation->set_rules("phone_no", "Phone Number", "required|is_unique[login.phone_no]");
+            $this->form_validation->set_rules("name", "Name", "required");
+            $this->form_validation->set_rules("email_id", "E-Mail", "required|is_unique[users.email]");
+            $this->form_validation->set_rules("phone_no", "Phone Number", "required|is_unique[users.phone]");
             $this->form_validation->set_rules('password', 'Password', 'required');
+            $this->form_validation->set_rules('type', 'Type', 'required');
+            $this->form_validation->set_rules('dept', 'Department', 'required');
             $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
             $this->form_validation->set_message('is_unique', 'The %s is already taken');
             $this->form_validation->set_message('matches', 'The Password Does Not Match');
             if($this->form_validation->run())
             {
-                $first_name = $this->input->post('first_name');
-                $last_name = $this->input->post('last_name');
+                $first_name = $this->input->post('name');
                 $email_id = $this->input->post('email_id');
                 $phone_no = $this->input->post('phone_no');
                 $password1 = $this->input->post('password');
+                $dept = $this->input->post('dept');
+                $type = $this->input->post('type');
                 $this->load->library('encryption');
                 $this->encryption->initialize(
                     array(
@@ -36,7 +38,7 @@
                 $password =  $this->encryption->encrypt($password1);
                 
                 $curl = curl_init();
-                $data = array('first_name' => $first_name,'last_name' => $last_name,'email_id' => $email_id,'phone_no' => $phone_no,'password' => $password);
+                $data = array('name' => $first_name,'email_id' => $email_id,'phone_no' => $phone_no,'password' => $password,'dept' => $dept,'type' => $type);
                 $postData = "";
                 foreach( $data as $key => $val ) {
                     $postData .=$key."=".$val."&";

@@ -3,7 +3,7 @@
         
         public function check($email_id,$phone_no)
         {
-            $query1 = $this->db->query("SELECT * from login WHERE email_id='{$email_id}' OR phone_no={$phone_no}");
+            $query1 = $this->db->query("SELECT * from users WHERE email='{$email_id}' OR phone={$phone_no}");
             if($query1->num_rows()>0){
                 return TRUE;
             }
@@ -12,14 +12,15 @@
             }
         }
         
-        public function signup_details($first_name,$last_name,$email_id,$password,$phone_no)
+        public function signup_details($first_name,$email_id,$password,$phone_no,$dept,$type)
         {
-            $this->db->insert('login',[
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'email_id' => $email_id,
+            $this->db->insert('users',[
+                'name' => $first_name,
+                'email' => $email_id,
+                'phone' => $phone_no,
                 'password' => $password,
-                'phone_no' => $phone_no,
+                'dept' => $dept,
+                'type' => $type,
             ]);
         }
         
