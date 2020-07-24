@@ -22,7 +22,7 @@ if($user['id']!=""){
             function hideURLbar() {
                 window.scrollTo(0, 1);
             }
-        </script> 
+        </script>
         <!-- Custom-Files -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>front_static/css/bootstrap.css">
         <!-- Bootstrap-Core-CSS -->
@@ -71,17 +71,17 @@ if($user['id']!=""){
         .task_complete:hover{
             background-color:#26262D;
         }
-        
+
         label{
               color:#e8384f!important;
            }
        </style>
-        <!-- //Fonts -->        
+        <!-- //Fonts -->
     </head>
 
     <body style="background-color:#26262D;">
         <!-- header -->
-        <?php include __DIR__."/../todo/header.php" ?>
+        <?php include __DIR__."/../login/header.php" ?>
         <!-- //header -->
         <!-- page details -->
         <div class="breadcrumb-agile">
@@ -105,7 +105,7 @@ if($user['id']!=""){
                     <div class="col-md-7" id="login" style="background-color:#31313A;border-left:1px solid black;">
                         <div class="container" style="margin-top:50px;">
                             <div class="row task-view">
-                                <div class="col-lg-12" style="margin-top:3px;height:400px;overflow-y:scroll;">                                                                           
+                                <div class="col-lg-12" style="margin-top:3px;height:400px;overflow-y:scroll;">
                                     <div id="task-body">
                                             <h2 style="color:#faf02a;" align="center">Login</h2>
                                         <form class="w3layouts-contact-fm" method="post" action="<?php echo base_url(); ?>login/login/form_val" >
@@ -114,7 +114,7 @@ if($user['id']!=""){
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="email_id">Email Id</label>
-                                                            
+
                                                             <input class="form-control" type="email" name="email_id" id="email_id" placeholder="Enter Email-id"required>
                                                         </div>
                                                     </div>
@@ -134,21 +134,21 @@ if($user['id']!=""){
                                                     </div>
                                                     </div>
                                             </form>
-                                        
-                                    
-                                    </div>                                                                               
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-               
+
             </div>
         </section>
         <!-- //banner-botttom -->
         <!-- footer -->
-        <?php include __DIR__."/../todo/footer.php"?>
+        <?php include __DIR__."/../login/footer.php"?>
         <!-- //footer -->
     </body>
 </html>
