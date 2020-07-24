@@ -49,6 +49,10 @@
                 $session_data = array(
                     "id" => $response['id'],
                     "name" => $response['name'],
+                    'type' => $response['type'],
+                    'photo' => $response['photo'],
+                    'dept' => $response['dept'],
+                    'last_active' => $response['last_active'],
                 );
                 $this->session->set_userdata($session_data);
                 redirect(base_url()."todo/home");    

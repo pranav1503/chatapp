@@ -25,7 +25,7 @@
         
         public function login_check($email_id)
         {
-            $query1 = $this->db->query("SELECT * from login WHERE email_id='{$email_id}'");
+            $query1 = $this->db->query("SELECT * from users WHERE email='{$email_id}'");
             return $query1;
         }
     }
