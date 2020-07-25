@@ -35,6 +35,33 @@ class Dashboard_model extends CI_Model
         return $id;
     }
   }
+
+  function showQuestion($qid)
+  {
+    $query = $this->db->query("SELECT * from questions where id=$qid");
+    if($query->num_rows()>0){
+        $question;
+        foreach ($query->result() as $key => $value) {
+          $question = array(
+            "question" => $value->question,
+            "teacher" => $value->teacher,
+            "description" => $value->description,
+            "student" => $value->student,
+            "answer" => $value->answer,
+            "answered" => $value->answered,
+          );
+        }
+        return $question;
+
+    }
+  }
+
+  function answer($arr,$where)
+  {
+    $this->db->update("questions",$arr,array("id"=>$where));
+  }
+
+
 }
 
  ?>
