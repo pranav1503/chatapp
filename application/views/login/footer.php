@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-          <title>To-Do</title>
-          <link rel = "icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png">
-          <!-- For apple devices -->
-          <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png"/>
+          <title>CodeMiners</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <meta charset="UTF-8" />
           <script>
@@ -39,7 +36,7 @@
         <footer>
             <div class="footer" style="background-color:black;">
                 <div class="container-fluid">
-                    <center><p style="color:white;"><img src="<?php echo base_url(); ?>front_static/images/logo2.png" alt="" style="height:100px;"><br>Developed By Team DP Tech.</p></center>
+                    <center><p style="color:white;"><br>Developed By Team CodeMiners</p></center>
                 </div>
                 <!-- //footer bottom -->
             </div>

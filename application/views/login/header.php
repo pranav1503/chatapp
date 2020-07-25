@@ -2,10 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>To-Do</title>
-    <link rel = "icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png">
-    <!-- For apple devices -->
-    <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png"/>
+    <title>ChatApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
     <script>
@@ -41,7 +38,6 @@
 			<div class="header-agile">
 				<h2>
 					<a class="navbar-brand logo" href="<?php echo base_url(); ?>" style="color:#ff3a3a;">
-                       <h1><img src="<?php echo base_url(); ?>front_static/images/logo.png" alt="" style="height:50px;"><span style="color:red;">To</span><span style="color:white;">-</span><span style="color:yellow;">Do</span></h1>
 					 
 					</a>
 				</h2>

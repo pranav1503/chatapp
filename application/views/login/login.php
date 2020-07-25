@@ -8,10 +8,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-        <title>To-Do</title>
-        <link rel = "icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png">
-        <!-- For apple devices -->
-        <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png"/>
+        <title>ChatApp</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8" />
         <script>

@@ -30,13 +30,13 @@ class Login extends REST_Controller{
             $photo = $row->photo;
             $last_active = $row->last_active;
             $this->load->library('encryption');
-            // $this->encryption->initialize(
-            //     array(
-            //         'cipher' => 'aes-256',
-            //         'mode' => 'ctr',
-            //     )
-            // );
-            // $pass =  $this->encryption->decrypt($pass);
+             $this->encryption->initialize(
+                 array(
+                     'cipher' => 'aes-256',
+                     'mode' => 'ctr',
+                 )
+             );
+             $pass =  $this->encryption->decrypt($pass);
             if($password==$pass){
                 $session_data = array(
                 'id' => $id,

@@ -21,6 +21,7 @@
                 'password' => $password,
                 'dept' => $dept,
                 'type' => $type,
+                'photo' => 'default.png',
             ]);
         }
         
