@@ -139,7 +139,7 @@
           <span class="dropdown-item dropdown-header">0 Notifications</span>
 
       </li>
-  
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -155,22 +155,21 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-       Sidebar user panel (optional) 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <?php
-//              if($user['type'] == 'student'){
-//                $pic_url = base_url() . "back_static/profile/student/";
-//              }else{
-//                $pic_url = base_url() . "back_static/profile/teacher/";
-//              }
+             if($user['type'] == 'student'){
+               $pic_url = base_url() . "back_static/profile/student/";
+             }else{
+               $pic_url = base_url() . "back_static/profile/teacher/";
+             }
            ?>
-          <img src="<?php //echo $pic_url; ?><?php //echo $user['photo']; ?>" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo $pic_url; ?><?php echo $user['photo']; ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
             <?php
-              //echo ucwords($user['name']);
+              echo ucwords($user['name']);
             ?>
           </a>
         </div>
@@ -180,7 +179,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="<?php //echo base_url(); ?>user/details" class="nav-link">
+            <a href="<?php echo base_url(); ?>profile" class="nav-link">
               <i class="fas fa-user-circle nav-icon"></i>
               <p>Profile</p>
             </a>

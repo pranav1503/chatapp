@@ -28,7 +28,23 @@
 
     function question($qid)
     {
-      echo $qid;
+      $this->load->model("Dashboard_model");
+      $data["qid"] = $qid;
+      $question = $this->Dashboard_model->showQuestion($qid);
+      $data["question"] = ($question);
+      $this->load->view("dashboard/question",$data);
+    }
+
+    function answer()
+    {
+      $id = $this->input->post("id");
+      $arr = array(
+        "answer" => $this->input->post("answer"),
+        "answered" => 1
+      );
+      $this->load->model("Dashboard_model");
+      $question = $this->Dashboard_model->answer($arr,$id);
+      echo  $this->input->post("answer");
     }
 
   }
