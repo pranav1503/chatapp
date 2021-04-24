@@ -10,11 +10,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel = "icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png">
+  <link rel = "icon" type = "image/png" href = "<?php echo base_url(); ?>back_static/images/logo/logo.png">
   <!-- For apple devices -->
-  <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>front_static/images/logo.png"/>
+  <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>back_static/images/logo/logo.png"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Leon Maestro De Fitness</title>
+  <title>Code Miners</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -115,7 +115,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url(); ?>" class="nav-link">Home</a>
+        <a href="<?php echo base_url(); ?>dashboard" class="nav-link">Home</a>
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -133,15 +133,69 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">0</span>
+          <span class="badge badge-warning navbar-badge" id="noty-count">15</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">0 Notifications</span>
+          <span class="dropdown-item dropdown-header" id="noty-count-in">15 Notifications</span>
+          <div class="dropdown-divider"></div>
+          <div id="noty-items">
+          </div>
 
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+        </div>
       </li>
 
     </ul>
   </nav>
+
+  <script type="text/javascript">
+    function getNoty() {
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>dashboard/notification/getNotyCount",
+        data: {
+          "user" : "<?php echo $user["email_id"]; ?>"
+        },
+        success: function (data) {
+            document.getElementById("noty-count").innerHTML = data;
+            document.getElementById("noty-count-in").innerHTML = data +" Notifications";
+        },
+        error: function (data) {
+          alert("Error");
+          // console.log(data);
+        }
+      });
+
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>dashboard/notification/getNoty",
+        data: {
+          "user" : "<?php echo $user["email_id"]; ?>"
+        },
+        success: function (data) {
+            console.log("hi");
+            data = JSON.parse(data);
+            output = "";
+            for (var i = 0; i < data.length; i++) {
+              output += `
+              <a href="<?php echo base_url()."question" ?>/`+data[i].qid+`" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i>`+ data[i].message.substring(0,30) + "...." +`
+                <!-- <span class="float-right text-muted text-sm">3 mins</span>-->
+              </a>
+              `
+            }
+            document.getElementById("noty-items").innerHTML = output;
+        },
+        error: function (data) {
+          alert("Error");
+          // console.log(data);
+        }
+      });
+      setTimeout(getNoty, 5000);
+    }
+    getNoty();
+  </script>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -150,7 +204,7 @@
     <a href="#" class="brand-link">
       <img src="<?php echo base_url(); ?>back_static/images/logo/logo.png" alt="LMDF Logo" class="brand-image img-circle elevation-3"
            style="opacity: 1">
-      <span class="brand-text font-weight-light">LMDF</span>
+      <span class="brand-text font-weight-light">CodeMiners</span>
     </a>
 
     <!-- Sidebar -->
@@ -179,6 +233,12 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
+            <a href="<?php echo base_url(); ?>" class="nav-link">
+              <i class="fas fa-home nav-icon"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo base_url(); ?>profile" class="nav-link">
               <i class="fas fa-user-circle nav-icon"></i>
               <p>Profile</p>
@@ -188,9 +248,16 @@
               if ($user['type'] == "student") {
            ?>
            <li class="nav-item">
-             <a href="<?php echo base_url(); ?>user/details" class="nav-link">
+             <a href="<?php echo base_url(); ?>dashboard/quespost" class="nav-link">
                <i class="fas fa-question-circle nav-icon"></i>
                <p>Your Questions</p>
+             </a>
+           </li>
+
+           <li class="nav-item">
+             <a href="<?php echo base_url(); ?>dashboard/ask" class="nav-link">
+               <i class="fas fa-question nav-icon"></i>
+               <p>Ask a question</p>
              </a>
            </li>
 
@@ -199,7 +266,12 @@
         <?php
             if ($user['type'] == "teacher") {
          ?>
-
+         <li class="nav-item">
+           <a href="<?php echo base_url(); ?>questions" class="nav-link">
+             <i class="fas fa-question-circle nav-icon"></i>
+             <p>Question to you</p>
+           </a>
+         </li>
 
       <?php } ?>
 

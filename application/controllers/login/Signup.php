@@ -1,16 +1,16 @@
 <?php
     class Signup extends CI_Controller{
-        
+
         public function index()
-        {            
+        {
             $this->load->view('login/signup');
         }
 
         public function form_val()
         {
-            
+
             $this->load->library('form_validation');
-            
+
             $this->form_validation->set_rules("name", "Name", "required");
             $this->form_validation->set_rules("email_id", "E-Mail", "required|is_unique[users.email]");
             $this->form_validation->set_rules("phone_no", "Phone Number", "required|is_unique[users.phone]");
@@ -35,8 +35,8 @@
                         'mode' => 'ctr',
                     )
                 );
-                $password =  $this->encryption->encrypt($password1);
-                
+                // $password =  $this->encryption->encrypt($password1);
+                $password = $password1;
                 $curl = curl_init();
                 $data = array('name' => $first_name,'email_id' => $email_id,'phone_no' => $phone_no,'password' => $password,'dept' => $dept,'type' => $type);
                 $postData = "";
@@ -62,7 +62,7 @@
                     "Cookie: ci_session=t2rniginpt5po3mj7hu19q5srhaleotl"
                   ),
                 ));
-                
+
 
             $response = curl_exec($curl);
 

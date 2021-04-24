@@ -55,5 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['signup'] = 'login/signup';
 $route['dashboard'] = 'dashboard/dashboard';
+$route['dashboard/ask'] = 'dashboard/dashboard/askQuestionView';
 $route['question/(:num)'] = 'dashboard/dashboard/question/$1';
+$route['public/question/(:num)'] = 'dashboard/PublicQuestion/index/$1';
 $route['profile'] = 'dashboard/profile';
+$route['questions'] = 'dashboard/quespost';

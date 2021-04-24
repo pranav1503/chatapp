@@ -36,7 +36,7 @@ class Login extends REST_Controller{
                      'mode' => 'ctr',
                  )
              );
-             $pass =  $this->encryption->decrypt($pass);
+             // $pass =  $this->encryption->decrypt($pass);
             if($password==$pass){
                 $session_data = array(
                 'id' => $id,

@@ -4,6 +4,12 @@
 //if($user['id']!=""){
 //    redirect(base_url()."todo/home");
 //}
+$this->load->helper('url');
+$this->load->library('session');
+$user = $this->session->all_userdata();
+if(!empty($user['name'])){
+  redirect(base_url().'dashboard');
+}
 ?>-->
 <!DOCTYPE html>
 <html lang="zxx">
