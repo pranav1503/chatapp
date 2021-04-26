@@ -56,6 +56,7 @@ class Dashboard_model extends CI_Model
         $question;
         foreach ($query->result() as $key => $value) {
           $question = array(
+            "id" => $value->id,
             "question" => $value->question,
             "teacher" => $value->teacher,
             "description" => $value->description,
@@ -98,6 +99,17 @@ class Dashboard_model extends CI_Model
   function deleteNoti($qid,$user)
   {
     $this->db->delete("notification",array("qid"=>$qid,"user"=>$user));
+  }
+
+  public function deleteQuestion($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('questions');
+  }
+
+  public function deleteAnswer($id)
+  {
+    $query = $this->db->query("UPDATE questions SET answer=null, answered=0 where id=$id");
   }
 }
 

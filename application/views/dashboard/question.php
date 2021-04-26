@@ -12,8 +12,6 @@
   }
  ?>
 
-
-
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -41,13 +39,17 @@
              <div class="card card-primary card-outline">
               <div class="card-body">
                 <h2><?php echo $question["question"]; ?></h2>
-                <p style="color:grey;">Author: <?php echo $question["student"]; ?></p>
+                <p style="color:grey;">asked by: <?php echo $question["student"]; ?></p>
 
                 <div class="row">
                   <div class="col-6">
                     <div class="description">
 
                     </div>
+
+                    <?php if ($user['email_id'] == $question["student"]): ?>
+                      <button type="button" class="btn btn-danger" onclick="deleteQuestionFun()" name="button"><i class="fa fa-trash"></i> Delete</button>
+                    <?php endif; ?>
 
                     <script type="text/javascript">
                       $(".description").html(`<?php echo $question["description"]; ?>`);
@@ -158,8 +160,10 @@
              <div class="card card-danger card-outline">
               <div class="card-body">
                 <h2>Answer</h2>
-                <p style="color:grey;">Author: <?php echo $question["teacher"]; ?></p>
-
+                <?php if ($question["teacher"] == $user['email_id']): ?>
+                  <button type="button" class="btn btn-danger float-right" onclick="deletePrivateAnswer()" name="button"><i class="fa fa-trash"></i></button>
+                <?php endif; ?>
+                <p style="color:grey;">answered by: <?php echo $question["teacher"]; ?></p>
                 <div class="row">
                   <div class="col-6">
                     <div class="answer">
@@ -195,6 +199,45 @@
         // Summernote
         $('.textarea').summernote()
       })
+
+      function deleteQuestionFun() {
+        var sure = confirm("Are you sure you want to delete?");
+        if(sure){
+          $.ajax({
+            type: "POST",
+            url : "<?php echo base_url()."dashboard/dashboard/deleteQuestion"; ?>",
+            data: {
+              "id" : <?php echo $qid; ?>,
+            },
+            success:function (data) {
+              // console.log(data);
+              window.location.href = "<?php echo base_url()."dashboard/quespost"; ?>";
+            },
+            error: function() {
+              alert("Error");
+            }
+          });
+        }
+      }
+
+      function deletePrivateAnswer() {
+        var sure = confirm("Are you sure you want to delete?");
+        if(sure){
+          $.ajax({
+            type: "POST",
+            url : "<?php echo base_url()."dashboard/dashboard/deleteAnswer"; ?>",
+            data: {
+              "id" : <?php echo $qid; ?>,
+            },
+            success:function (data) {
+              window.location.href = "<?php echo base_url()."question/".$qid; ?>";
+            },
+            error: function() {
+              alert("Error");
+            }
+          });
+        }
+      }
 
 
     </script>

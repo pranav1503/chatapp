@@ -82,7 +82,7 @@
 
         public function getPublicAnswersWithID($id)
         {
-          $query = $this->db->query("SELECT u.name, a.id, a.answer, a.date_time from public_answers a, users u, public_questions q where q.id = a.question_id and q.id=$id and a.user_id = u.id");
+          $query = $this->db->query("SELECT u.name, u.id as userid ,a.id, a.answer, a.date_time from public_answers a, users u, public_questions q where q.id = a.question_id and q.id=$id and a.user_id = u.id");
           $info = array();
           if($query->num_rows()>0){
               foreach ($query->result() as $key => $value) {
@@ -90,6 +90,8 @@
                   "answer" => $value->answer,
                   "date" => $value->date_time,
                   "answered_by" => $value->name,
+                  "answerId" => $value->id,
+                  "userId" => $value->userid
                 );
                 array_push($info,$x);
               }
@@ -101,5 +103,16 @@
         {
           $this->db->insert("public_answers",$arr);
         }
+        public function deleteAnswer($id)
+        {
+          $this->db->where('id', $id);
+          $this->db->delete('public_answers');
+        }
+        public function deleteQuestion($id)
+        {
+          $this->db->where('id', $id);
+          $this->db->delete('public_questions');
+        }
+
     }
 ?>

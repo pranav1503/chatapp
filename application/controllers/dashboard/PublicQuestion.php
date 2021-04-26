@@ -13,6 +13,7 @@
       $var1 = $this->QuesPosts->getPublicAnswersWithID($id);
       $data["questionDetails"] = $var;
       $data["answers"] = $var1;
+      // print_r($var1);
       $this->load->view("dashboard/publicAnswer",$data);
     }
 
@@ -30,6 +31,21 @@
       echo "Your answer has been posted.";
     }
 
+    function delete()
+    {
+      $this->load->model("QuesPosts");
+      $id = $this->input->post("id");
+      $this->QuesPosts->deleteAnswer($id);
+      echo $id;
+    }
+
+    function deleteQuestion()
+    {
+      $this->load->model("QuesPosts");
+      $id = $this->input->post("id");
+      $this->QuesPosts->deleteQuestion($id);
+      echo $id;
+    }
 
   }
 

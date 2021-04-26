@@ -132,6 +132,9 @@
              <?php echo $questionDetails["description"]; ?>
              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
              <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+             <?php if ($user["id"] == $questionDetails["id"]): ?>
+               <button type="button" class="btn btn-danger btn-sm" onclick="deleteQuestion()"><i class="fa fa-trash"></i> Delete</button>
+             <?php endif; ?>
              <span class="float-right text-muted"><?php echo ($questionDetails["ansCount"]==0)?"No Answer":(($questionDetails["ansCount"]==1)?$questionDetails["ansCount"]." answer":$questionDetails["ansCount"]." answers") ?></span>
            </div>
            <!-- /.card-body -->
@@ -148,6 +151,11 @@
                    $date = strtotime($value["date"] );
                    echo date('d M Y', $date);?></span>
                  </span><!-- /.username -->
+                 <?php if ($user['id'] == $value["userId"]): ?>
+                   <button type="button" class="btn btn-danger float-right" onclick="deleteAnswer(<?php echo $value["answerId"] ?>)" name="button"><i class="fa fa-trash"></i></button>
+                 <?php endif; ?>
+                 <br>
+                 <br>
                  <?php echo $value["answer"]  ?>
                </div>
                <!-- /.comment-text -->
@@ -232,6 +240,47 @@
     });
   }
 
+</script>
+
+<script type="text/javascript">
+  function deleteAnswer(answerId) {
+    var sure = confirm("Are you sure you want to delete?");
+    console.log(answerId);
+    if (sure) {
+        $.ajax({
+          type: "POST",
+          url : "<?php echo base_url()."dashboard/PublicQuestion/delete"; ?>",
+          data: {
+            "id" : answerId,
+          },
+          success:function (data) {
+            window.location.href = "<?php echo base_url()."public/question/".$id; ?>";
+          },
+          error: function() {
+            alert("Error");
+          }
+        });
+      }
+    }
+
+    function deleteQuestion() {
+      var sure = confirm("Are you sure you want to delete?");
+      if (sure) {
+          $.ajax({
+            type: "POST",
+            url : "<?php echo base_url()."dashboard/PublicQuestion/deleteQuestion"; ?>",
+            data: {
+              "id" : <?php echo $id ?>,
+            },
+            success:function (data) {
+              window.location.href = "<?php echo base_url()."dashboard/quespost"; ?>";
+            },
+            error: function() {
+              alert("Error");
+            }
+          });
+        }
+      }
 </script>
 
 <?php

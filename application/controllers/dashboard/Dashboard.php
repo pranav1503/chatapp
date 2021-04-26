@@ -92,6 +92,21 @@
       echo  $this->input->post("answer");
     }
 
+    function deleteQuestion()
+    {
+      $qid = $this->input->post("id");
+      $this->load->model("Dashboard_model");
+      $question = $this->Dashboard_model->deleteQuestion($qid);
+      echo $qid;
+    }
+
+    function deleteAnswer()
+    {
+      $qid = $this->input->post("id");
+      $this->load->model("Dashboard_model");
+      $question = $this->Dashboard_model->deleteAnswer($qid);
+      echo $qid;
+    }
   }
 
  ?>
