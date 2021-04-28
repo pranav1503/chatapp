@@ -80,6 +80,16 @@
       background-color: DodgerBlue !important;
       color: #ffffff;
     }
+
+    .searchBtnUI:hover{
+      cursor: pointer;
+    }
+
+    .searchBtnLogo:hover{
+      cursor: pointer;
+      background-color: #0069D9;
+      color: white;
+    }
   </style>
 </head>
 <?php
@@ -150,8 +160,7 @@ function diffVotes(answerId) {
            <div class="card-body">
              <h3><?php echo $questionDetails["question"]; ?></h3>
              <?php echo $questionDetails["description"]; ?>
-             <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-             <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
+             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-default"><i class="fas fa-share"></i> Share</button>
              <?php if ($user["id"] == $questionDetails["id"]): ?>
                <button type="button" class="btn btn-danger btn-sm" onclick="deleteQuestion()"><i class="fa fa-trash"></i> Delete</button>
              <?php endif; ?>
@@ -234,6 +243,32 @@ function diffVotes(answerId) {
    </div>
  </section>
 
+ <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><i class="fas fa-link"></i> Copy Link</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="input-group input-group-sm float-sm-right">
+                <input class="form-control" type="search" id="copyInput" placeholder="Search" aria-label="Search" readonly>
+                <div class="input-group-append searchBtnUI" onclick="copyLink()" data-dismiss="modal">
+                  <span class="input-group-text searchBtnLogo">
+                    <i class="fas fa-copy"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+<input type="hidden" id="getLink" name="" value="">
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -402,7 +437,16 @@ function diffVotes(answerId) {
         }
       }
 </script>
-
+<script>
+  $("#copyInput").val(window.location.href);
+  function copyLink() {
+    $("#copyInput").val(window.location.href);
+    var copyText = document.getElementById("copyInput");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+  }
+</script>
 <?php
   include 'footer.php';
  ?>

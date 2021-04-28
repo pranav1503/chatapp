@@ -12,7 +12,7 @@
 
             $email_id = $this->input->post('email_id');
             $password = $this->input->post('password');
-
+            $redirecter = $this->input->post("redirecter");
             $curl = curl_init();
             $data = array('email_id' => $email_id,'password' => $password);
             $postData = "";
@@ -50,14 +50,20 @@
                     "id" => $response['id'],
                     "name" => $response['name'],
                     "phone_no" => $response['phone_no'],
-                    'email_id' => $response["email_id"],                    
+                    'email_id' => $response["email_id"],
                     'type' => $response['type'],
                     'photo' => $response['photo'],
                     'dept' => $response['dept'],
                     'last_active' => $response['last_active'],
                 );
                 $this->session->set_userdata($session_data);
-                redirect(base_url()."dashboard/dashboard");
+                echo "string";
+
+                if (isset($redirecter)) {
+                  redirect($redirecter);
+                }else{
+                  redirect(base_url());
+                }
             }
             else if($response['status']==0){
                 $this->session->set_flashdata("login_msg","Please Enter Correct Email-id and Password.");

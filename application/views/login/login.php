@@ -136,6 +136,7 @@ if(!empty($user['name'])){
                                                         <button type="submit" name="insert" value="Insert" id="buttn" style="background-color:#faf02a;" class="btn float-right btn-block">Login</button>
                                                     </div>
                                                     </div>
+                                                    <input type="hidden" name="redirecter" id="redirecter" value="">
                                             </form>
 
 
@@ -149,6 +150,13 @@ if(!empty($user['name'])){
 
             </div>
         </section>
+        <script type="text/javascript">
+          const queryString = window.location.search;
+          console.log(queryString);
+          const urlParams = new URLSearchParams(queryString);
+          const redirecter = urlParams.get('redirect')
+          document.getElementById('redirecter').value = redirecter;
+        </script>
         <!-- //banner-botttom -->
         <!-- footer -->
         <?php include __DIR__."/../login/footer.php"?>

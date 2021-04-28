@@ -7,10 +7,11 @@
 
     function index($id)
     {
+      $this->load->helper('url');
       $this->load->library('session');
       $user = $this->session->all_userdata();
       if(empty($user['name'])){
-        redirect(base_url());
+        redirect(base_url()."?redirect=".current_url());
       }
       $data["id"] = $id;
       $this->load->model("QuesPosts");
