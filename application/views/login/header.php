@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>ChatApp</title>
+    <title>ServerMonks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
     <script>
@@ -38,7 +38,7 @@
 			<div class="header-agile">
 				<h2>
 					<a class="navbar-brand logo" href="<?php echo base_url(); ?>" style="color:#ff3a3a;">
-					 
+
 					</a>
 				</h2>
 			</div>
@@ -47,20 +47,20 @@
 					<label for="drop" class="toggle mt-lg-0 mt-1"><span class="fa fa-bars" aria-hidden="true"></span></label>
 					<input type="checkbox" id="drop" />
 						<ul class="menu">
-<?php  
+<?php
             if(!isset($_SESSION['view'])){?>
              <li class="mr-lg-3 mr-2"><a href="<?php echo base_url(); ?>">Login</a></li>
              <li class="mr-lg-3 mr-2"><a href="<?php echo base_url(); ?>signup">Sign up</a></li>
 						</ul>
         <?php    }
                 else{?>
-                     
+
                      <li class="mr-lg-3 mr-2 active"><a href="<?php echo base_url(); ?>">Welcome,<?php echo " ".$user['name'];?></a></li>
                      <li class="mr-lg-3 mr-2"><a href="<?php echo base_url(); ?>login/logout">Logout</a></li>
-                    
-                    
+
+
                 <?php }?>
-        
+
 				</nav>
 			</div>
 

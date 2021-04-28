@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-          <title>CodeMiners</title>
+          <title>ServerMonks</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <meta charset="UTF-8" />
           <script>
@@ -36,7 +36,7 @@
         <footer>
             <div class="footer" style="background-color:black;">
                 <div class="container-fluid">
-                    <center><p style="color:white;"><br>Developed By Team CodeMiners</p></center>
+                    <center><p style="color:white;"><br>Developed By Team ServerMonks</p></center>
                 </div>
                 <!-- //footer bottom -->
             </div>

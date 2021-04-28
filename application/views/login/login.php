@@ -14,7 +14,7 @@ if(!empty($user['name'])){
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-        <title>ChatApp</title>
+        <title>ServerMonks</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8" />
         <script>

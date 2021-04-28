@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-        <title>ChatApp</title>
+        <title>ServerMonks</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8" />
         <script>
@@ -21,7 +21,7 @@
             function hideURLbar() {
                 window.scrollTo(0, 1);
             }
-        </script>        
+        </script>
         <!-- Custom-Files -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>front_static/css/bootstrap.css">
         <!-- Bootstrap-Core-CSS -->
@@ -70,12 +70,12 @@
         .task_complete:hover{
             background-color:#26262D;
         }
-        
+
         label{
               color:#657ae6!important;
            }
        </style>
-        <!-- //Fonts -->        
+        <!-- //Fonts -->
     </head>
 
     <body style="background-color:#26262D;">
@@ -104,11 +104,11 @@
                     <div class="col-md-7" id="signup" style="background-color:#31313A;border-left:1px solid black;">
                         <div class="container" style="margin-top:50px;">
                             <div class="row task-view">
-                                <div class="col-lg-12" style="margin-top:3px;height:600px;overflow-y:scroll;">                                                                           
+                                <div class="col-lg-12" style="margin-top:3px;height:600px;overflow-y:scroll;">
                                     <div id="task-body">
-                                           
+
                                             <h2 style="color:#e8c00c;" align="center">Sign Up</h2>
-                                            
+
                                         <form class="w3layouts-contact-fm" method="post" action="<?php echo base_url(); ?>login/signup/form_val" >
                                               <p class="text-danger"><?php echo form_error("confirm_password"); ?></p>
                                               <p class="text-danger"><?php echo form_error("email_id"); ?></p>
@@ -133,14 +133,14 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="email_id">Email Id</label>
-                                                            
+
                                                             <input class="form-control" type="email" name="email_id" id="email_id" placeholder="Enter Email-id"required>
                                                         </div>
                                                     </div>
                                                     </div>
                                                     <div class="row">
                                                     <div class="col-sm-6">
-                                                        <div class="form-group">                                                    
+                                                        <div class="form-group">
                                                             <label for="dept">Department</label>
                                                             <select name="dept" class="form-control">
                                                               <option name="dept" value="ECE">ECE</option>
@@ -156,8 +156,8 @@
                                                             <label for="phone_no">Phone Number</label>
                                                             <input class="form-control" type="number" name="phone_no" id="phone_no" placeholder="Enter Phone Number"required>
                                                         </div>
-                                                                             
-                                                                                                                   
+
+
 <!--
                                                         <div class="form-group">
                                                             <label for="type">Type</label>
@@ -182,7 +182,7 @@
                                                     </div>
                                                     <div class="row">
                                                     <div class="col-sm-6">
-                                                       
+
                                                        <div class="custom-control custom-radio custom-control-inline">
                                                           <input type="radio" name="type" value="student" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample" checked>
                                                           <label class="custom-control-label" for="defaultInline1">Student</label>
@@ -197,16 +197,16 @@
 
                                                     </div>
                                                     </div>
-                                                    
+
                                                     <div class="row">
                                                      <div class="col-md-12" style="margin-bottom:10px">
                                                         <button type="submit" name="insert" value="Insert" id="buttn" style="background-color:#e8c00c;" class="btn float-right btn-block">Sign Up</button>
                                                     </div>
                                                     </div>
                                             </form>
-                                        
-                                    
-                                    </div>                                                                               
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
