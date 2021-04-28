@@ -1,7 +1,7 @@
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">
-  <strong>CodeMiners</strong>
+  <strong>Server Monks</strong>
   All rights reserved.
   <div class="float-right d-none d-sm-inline-block">
     <!-- <b>Version</b> 3.0.4 -->

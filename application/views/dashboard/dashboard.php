@@ -67,6 +67,17 @@
       background-color: DodgerBlue !important;
       color: #ffffff;
     }
+
+    .searchBtnUI:hover{
+      cursor: pointer;
+    }
+
+    .searchBtnLogo:hover{
+      cursor: pointer;
+      background-color: #0069D9;
+      color: white;
+    }
+
   </style>
 </head>
 <?php
@@ -76,14 +87,19 @@
  <div class="content-header">
    <div class="container-fluid">
      <div class="row mb-2">
-       <div class="col-sm-6">
+       <div class="col-sm-9">
          <h1 class="m-0 text-dark">All Questions</h1>
+
        </div><!-- /.col -->
-       <div class="col-sm-6">
-         <ol class="breadcrumb float-sm-right">
-           <li class="breadcrumb-item"><a href="#">Home</a></li>
-           <li class="breadcrumb-item active">Dashboard</li>
-         </ol>
+       <div class="col-sm-3">
+            <div class="input-group input-group-sm float-sm-right">
+              <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
+              <div class="input-group-append searchBtnUI" onclick="displayQuestions()">
+                <span class="input-group-text searchBtnLogo">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
        </div><!-- /.col -->
      </div><!-- /.row -->
    </div><!-- /.container-fluid -->
@@ -96,6 +112,13 @@
 
 
  <section class="content">
+   <div class="container-fluid">
+     <div class="row">
+       <div class="col-6">
+
+       </div>
+     </div>
+   </div>
    <div class="container-fluid" id="public-questions">
 
    </div>
@@ -120,62 +143,87 @@
 
 </script>
 <script type="text/javascript">
-  var public_questions = <?php echo $public_questions; ?>;
-  console.log(public_questions);
 
+  function questionList(public_questions) {
+    if(public_questions.length == 0){
+      document.getElementById("public-questions").innerHTML="<h3 align='center'>No public questions available</h3>";
+    }else{
+        var output = ``;
+        var imgRegex = new RegExp($("#searchInput").val(),"i", "g");
+        for(var i=0;i<public_questions.length;i++){
+          var myDate = new Date(public_questions[i].date);
+          console.log(public_questions[i].date);
+          var options = { year: 'numeric', month: 'short', day: 'numeric' };
 
-  if(public_questions.length == 0){
-    document.getElementById("public-questions").innerHTML="<h3 align='center'>No public questions available</h3>";
-  }else{
-      var output = ``;
-      var imgRegex = new RegExp("<img[^>]*?>", "g");
-      for(var i=0;i<public_questions.length;i++){
-        var myDate = new Date(public_questions[i].date);
-        console.log(public_questions[i].date);
-        var options = { year: 'numeric', month: 'short', day: 'numeric' };
-
-
-        output += `<div class="container-fluid">
-                      <div class="row">
-                        <div class="col-lg-8">
-                          <div class="card card-info">
-                            <div class="card-body">
-                              <div class="row">
-                                <h4 style="overflow:hidden;white-space:nowrap;text-overflow: ellipsis;">`+ public_questions[i].question +`</h4>
-                              </div>
-                              <div class="row">
-                                <div class="col-9">
-                                  <p style="color:grey">`+ ((public_questions[i].ansCount==0)?`No answers`: ((public_questions[i].ansCount == 1)?(public_questions[i].ansCount+` answer`):(public_questions[i].ansCount+` answers`))) +`</p>
-                                  <a href="<?php echo base_url() ?>public/question/`+public_questions[i].id+`" class="btn btn-primary">View Answer(s)&nbsp;&nbsp;&nbsp;<i class="fas fa-hand-point-right"></i></a>
+          output += `<div class="container-fluid">
+                        <div class="row">
+                          <div class="col-lg-8">
+                            <div class="card card-info">
+                              <div class="card-body">
+                                <div class="row">
+                                  <h4 style="overflow:hidden;white-space:nowrap;text-overflow: ellipsis;">`+ public_questions[i].question +`</h4>
                                 </div>
-                                <div class="col-3">
-                                  <div class="row">
-                                     <div class="col-12">
-                                       <span style="color:grey;">asked `+ myDate.toLocaleDateString('en-US',options) +`</span>
-                                     </div>
+                                <div class="row">
+                                  <div class="col-9">
+                                    <p style="color:grey">`+ ((public_questions[i].ansCount==0)?`No answers`: ((public_questions[i].ansCount == 1)?(public_questions[i].ansCount+` answer`):(public_questions[i].ansCount+` answers`))) +`</p>
+                                    <a href="<?php echo base_url() ?>public/question/`+public_questions[i].id+`" class="btn btn-primary">View Answer(s)&nbsp;&nbsp;&nbsp;<i class="fas fa-hand-point-right"></i></a>
                                   </div>
-                                  <div class="row">
-                                    <div class="col-2">
-                                      <img src="<?php echo base_url()?>/back_static/profile/student/default.png" alt="" style="height:40px;border-radius:5px;">
+                                  <div class="col-3">
+                                    <div class="row">
+                                       <div class="col-12">
+                                         <span style="color:grey;">asked `+ myDate.toLocaleDateString('en-US',options) +`</span>
+                                       </div>
                                     </div>
-                                    <div class="col-10">
-                                      <p style="color:grey;overflow-x:hidden;white-space:nowrap;text-overflow: ellipsis">&nbsp;&nbsp;&nbsp;`+public_questions[i].asked_by+`</p>
-                                    <div>
+                                    <div class="row">
+                                      <div class="col-2">
+                                        <img src="<?php echo base_url()?>/back_static/profile/student/default.png" alt="" style="height:40px;border-radius:5px;">
+                                      </div>
+                                      <div class="col-10">
+                                        <p style="color:grey;overflow-x:hidden;white-space:nowrap;text-overflow: ellipsis">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`+public_questions[i].asked_by+`</p>
+                                      <div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
+                              <!-- /.card-body -->
                             </div>
-                            <!-- /.card-body -->
                           </div>
                         </div>
+                        <!-- Small boxes (Stat box) -->
                       </div>
-                      <!-- Small boxes (Stat box) -->
                     </div>
-                  </div>
-                 </div>`;
-        document.getElementById("public-questions").innerHTML=output;
-      }
+                   </div>`;
+         if($("#searchInput").val() != ""){
+            output = output.replaceAll(output.match(imgRegex),"<b>"+output.match(imgRegex)+"</b>");
+          }
+          document.getElementById("public-questions").innerHTML=output;
+        }
+    }
   }
+
+  function displayQuestions() {
+    console.log();
+    $.ajax({
+      type: "POST",
+      url : "<?php echo base_url()."dashboard/Dashboard/searchBar"; ?>",
+      async: false,
+      data: {
+        "pattern" : $("#searchInput").val(),
+        "userId" : <?php echo $user['id']; ?>
+      },
+      success:function (data) {
+        data = JSON.parse(data);
+        questionList(data);
+      },
+      error: function(data) {
+        console.log(data);
+        alert("Error");
+      }
+    });
+  }
+  var public_questions_php = <?php echo $public_questions; ?>;
+  questionList(public_questions_php);
+
 </script>
 
 <?php

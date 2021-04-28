@@ -82,16 +82,28 @@
 
         public function getPublicAnswersWithID($id)
         {
-          $query = $this->db->query("SELECT u.name, u.id as userid ,a.id, a.answer, a.date_time from public_answers a, users u, public_questions q where q.id = a.question_id and q.id=$id and a.user_id = u.id");
+          $this->load->library('session');
+          $user = $this->session->all_userdata()['id'];
+          $query = $this->db->query("(SELECT u.name, u.id as userId, a.id as answerId, a.answer, a.date_time,
+              sum(case when v.vote=1 then 1 else 0 end) as upvote_count,
+              sum(case when v.vote=0 then 1 else 0 end) as downvote_count,
+              sum(case when v.vote=1 then 1 else 0 end) - sum(case when v.vote=0 then 1 else 0 end) as differenceVote
+              from users u, public_answers a, public_questions q, votes v where u.id = a.user_id and q.id = a.question_id and q.id=$id and a.id = v.answerId
+              group by u.name, u.id, a.id, a.answer, a.date_time
+              UNION
+              SELECT u.name, u.id as userid ,a.id, a.answer, a.date_time, 0, 0, 0 from public_answers a, users u, public_questions q where q.id = a.question_id and q.id=$id and a.user_id = u.id
+              and NOT EXISTS(select answerId from votes where answerId=a.id)) order by differenceVote DESC;");
           $info = array();
           if($query->num_rows()>0){
               foreach ($query->result() as $key => $value) {
+                $query1 = $this->db->query("SELECT vote from votes where userId=$user and answerId=$value->answerId");
                 $x = array(
                   "answer" => $value->answer,
                   "date" => $value->date_time,
                   "answered_by" => $value->name,
-                  "answerId" => $value->id,
-                  "userId" => $value->userid
+                  "answerId" => $value->answerId,
+                  "userId" => $value->userId,
+                  "voteStatus" => ($query1->num_rows()>0)?$query1->result()[0]->vote:-1
                 );
                 array_push($info,$x);
               }
@@ -112,6 +124,26 @@
         {
           $this->db->where('id', $id);
           $this->db->delete('public_questions');
+        }
+
+        public function getPublicQuestionsSearch($pattern,$id){
+            $query = $this->db->query("SELECT q.id, q.question, q.date_time, q.anonymity, u.name from public_questions q, users u where q.user = u.id and q.user != $id and q.question like '%$pattern%'  order by q.date_time desc;");
+            $info = array();
+            if($query->num_rows()>0){
+                foreach ($query->result() as $key => $value) {
+                  $query1 = $this->db->query("SELECT COUNT(a.id) as ansCount from public_answers as a, public_questions as q where a.question_id=q.id and a.question_id = $value->id");
+                  $x = array(
+                    "id" => $value->id,
+                    "question" => $value->question,
+                    "date" => $value->date_time,
+                    "asked_by" => ($value->anonymity == 1)?"Anonymous":$value->name,
+                    "ansCount" => $query1->result()[0]->ansCount
+                  );
+                  array_push($info,$x);
+                }
+            }
+            return $info;
+
         }
 
     }

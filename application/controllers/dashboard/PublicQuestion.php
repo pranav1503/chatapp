@@ -7,6 +7,11 @@
 
     function index($id)
     {
+      $this->load->library('session');
+      $user = $this->session->all_userdata();
+      if(empty($user['name'])){
+        redirect(base_url());
+      }
       $data["id"] = $id;
       $this->load->model("QuesPosts");
       $var = $this->QuesPosts->getPublicQuestionWithID($id);

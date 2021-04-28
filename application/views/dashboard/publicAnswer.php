@@ -106,6 +106,25 @@
 
  </section> -->
 
+<script type="text/javascript">
+function diffVotes(answerId) {
+  $.ajax({
+    type: "POST",
+    url : "<?php echo base_url()."dashboard/Vote/diffVotes"; ?>",
+    async: false,
+    data: {
+      "answerId" : answerId,
+    },
+    success:function (data) {
+      document.getElementById("diffVotes_"+answerId).innerHTML = data;
+    },
+    error: function(data) {
+      console.log(data);
+      alert("Error");
+    }
+  });
+}
+</script>
 
 
  <section class="content">
@@ -118,6 +137,7 @@
              <div class="user-block">
                <img class="img-circle" src="<?php echo base_url() ?>/back_static/profile/student/default.png" alt="User Image">
                <span class="username"><a href="#"><?php echo $questionDetails["asked_by"]; ?></a></span>
+               <span><i class="fa fa-arrow-alt-up"></i></span>
                <span class="description">Shared publicly - <?php
                $date = strtotime($questionDetails["date"]);
                echo date('d M Y', $date);?></span>
@@ -146,17 +166,26 @@
 
                <div class="comment-text">
                  <span class="username">
-                   <?php echo $value["answered_by"] ?>
+                  <a href="#"><?php echo $value["answered_by"] ?></a>
                    <span class="text-muted float-right"><?php
                    $date = strtotime($value["date"] );
                    echo date('d M Y', $date);?></span>
                  </span><!-- /.username -->
-                 <?php if ($user['id'] == $value["userId"]): ?>
-                   <button type="button" class="btn btn-danger float-right" onclick="deleteAnswer(<?php echo $value["answerId"] ?>)" name="button"><i class="fa fa-trash"></i></button>
-                 <?php endif; ?>
-                 <br>
                  <br>
                  <?php echo $value["answer"]  ?>
+                 <hr>
+                 <?php if ($user['id'] == $value["userId"]): ?>
+                   <button type="button" class="btn btn-sm btn-default float-right" onclick="deleteAnswer(<?php echo $value["answerId"] ?>)" name="button"><i class="fa fa-trash"></i> Delete</button>
+                   <?php endif; ?>
+                   <script type="text/javascript">
+                     console.log("<?php echo $value['voteStatus']?>");
+                   </script>
+                   <button type="button" id="upVoteBtn_<?php echo $value["answerId"]; ?>" class="btn btn-sm <?php echo ($value["voteStatus"] == 1)?"btn-success":"btn-default" ?>" onclick="upvoteAnswer(<?php echo $value["answerId"] ?>)" name="button"><i class="far fa-hand-point-up"></i> Upvote</button> <span id="diffVotes_<?php echo $value["answerId"];?>">1002</span>
+                   <button type="button" id="downVoteBtn_<?php echo $value["answerId"]; ?>" class="btn btn-sm <?php echo ($value["voteStatus"] == 0)?"btn-danger":"btn-default" ?>" onclick="downvoteAnswer(<?php echo $value["answerId"] ?>)" name="button"><i class="far fa-hand-point-down"></i> Downvote</button>
+                   <script type="text/javascript">
+                     // var answerId
+                     diffVotes(<?php echo $value["answerId"]; ?>);
+                   </script>
                </div>
                <!-- /.comment-text -->
              </div>
@@ -231,7 +260,7 @@
         "answer" : $(".note-editable").html(),
       },
       success:function (data) {
-        alert(data);
+        // alert(data);
         window.location.href = "<?php echo base_url()."public/question/".$id; ?>";
       },
       error: function() {
@@ -261,6 +290,97 @@
           }
         });
       }
+    }
+
+    function addVote(answerId,vote) {
+      $.ajax({
+        type: "POST",
+        url : "<?php echo base_url()."dashboard/Vote/insertVote"; ?>",
+        async: false,
+        data: {
+          "userId" : <?php echo $user['id'] ?>,
+          "answerId" : answerId,
+          "vote" : vote
+        },
+        success:function (data) {
+          // alert(data);
+          // window.location.href = "<?php echo base_url()."dashboard/quespost"; ?>";
+        },
+        error: function(data) {
+          console.log(data);
+          alert("Error");
+        }
+      });
+    }
+
+    function deleteVote(answerId) {
+      $.ajax({
+        type: "POST",
+        url : "<?php echo base_url()."dashboard/Vote/deleteVote"; ?>",
+        async: false,
+        data: {
+          "userId" : <?php echo $user['id'] ?>,
+          "answerId" : answerId,
+        },
+        success:function (data) {
+          // alert(data);
+          // window.location.href = "<?php echo base_url()."dashboard/quespost"; ?>";
+        },
+        error: function(data) {
+          console.log(data);
+          alert("Error");
+        }
+      });
+    }
+
+    function upvoteAnswer(answerId) {
+      var btn = document.getElementById("upVoteBtn_"+answerId);
+      var btnD = document.getElementById("downVoteBtn_"+answerId);
+      if(btn.classList.contains("btn-default")){
+        if(btnD.classList.contains("btn-danger")){
+          btnD.classList.remove("btn-danger");
+          btnD.classList.add("btn-default");
+          deleteVote(answerId);
+          addVote(answerId,1);
+          // ajax delete and insert
+        }else{
+          //  ajax insert
+          addVote(answerId,1);
+        }
+        btn.classList.remove("btn-default");
+        btn.classList.add("btn-success");
+      }else{
+        btn.classList.remove("btn-success");
+        btn.classList.add("btn-default");
+        // ajax to delete
+        deleteVote(answerId);
+      }
+      diffVotes(answerId);
+    }
+
+    function downvoteAnswer(answerId) {
+      var btn = document.getElementById("downVoteBtn_"+answerId);
+      var btnU = document.getElementById("upVoteBtn_"+answerId);
+      if(btn.classList.contains("btn-default")){
+        if(btnU.classList.contains("btn-success")){
+          btnU.classList.remove("btn-success");
+          btnU.classList.add("btn-default");
+          //ajax to delete and insert
+          deleteVote(answerId);
+          addVote(answerId,0);
+        }else{
+          //ajax to insert
+          addVote(answerId,0);
+        }
+        btn.classList.remove("btn-default");
+        btn.classList.add("btn-danger");
+      }else{
+        btn.classList.remove("btn-danger");
+        btn.classList.add("btn-default");
+        // ajax to delete
+        deleteVote(answerId);
+      }
+      diffVotes(answerId);
     }
 
     function deleteQuestion() {

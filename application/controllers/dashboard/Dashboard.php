@@ -107,6 +107,15 @@
       $question = $this->Dashboard_model->deleteAnswer($qid);
       echo $qid;
     }
+
+    function searchBar()
+    {
+      $pattern = $this->input->post("pattern");
+      $id = $this->input->post("userId");
+      $this->load->model("QuesPosts");
+      $searched = $this->QuesPosts->getPublicQuestionsSearch($pattern,$id);
+      echo json_encode($searched);
+    }
   }
 
  ?>

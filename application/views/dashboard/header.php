@@ -14,7 +14,7 @@
   <!-- For apple devices -->
   <link rel = "apple-touch-icon" type = "image/png" href = "<?php echo base_url(); ?>back_static/images/logo/logo.png"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Code Miners</title>
+  <title>Server Monks</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -204,7 +204,7 @@
     <a href="#" class="brand-link">
       <img src="<?php echo base_url(); ?>back_static/images/logo/logo.png" alt="LMDF Logo" class="brand-image img-circle elevation-3"
            style="opacity: 1">
-      <span class="brand-text font-weight-light">CodeMiners</span>
+      <span class="brand-text font-weight-light">Server Monks</span>
     </a>
 
     <!-- Sidebar -->
