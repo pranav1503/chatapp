@@ -36,9 +36,9 @@
 	<div class="container">
 		<div class="header d-lg-flex justify-content-between align-items-center">
 			<div class="header-agile">
-				<h2>
-					<a class="navbar-brand logo" href="<?php echo base_url(); ?>" style="color:#ff3a3a;">
-
+				<h2 style="color:white;">
+					<a class="navbar-brand logo" href="<?php echo base_url(); ?>" style="color:white;">
+            <span style="font-size:40px;">QUiRiE</span>
 					</a>
 				</h2>
 			</div>
