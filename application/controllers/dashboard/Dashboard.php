@@ -53,6 +53,7 @@
           "description" => $this->input->post("description"),
           "user" => $this->input->post("studentID"),
           "anonymity" => ($isAnonymous == 'true')?true:false,
+          "tag" => $this->input->post("tag"),
           "date_time" => date("Y-m-d H:i:s")
         );
         $idPublic = $this->Dashboard_model->askPublicQuestion($arr);
@@ -111,9 +112,10 @@
     function searchBar()
     {
       $pattern = $this->input->post("pattern");
+      $tagPattern = $this->input->post("tagPattern");
       $id = $this->input->post("userId");
       $this->load->model("QuesPosts");
-      $searched = $this->QuesPosts->getPublicQuestionsSearch($pattern,$id);
+      $searched = $this->QuesPosts->getPublicQuestionsSearch($pattern,$tagPattern,$id);
       echo json_encode($searched);
     }
   }

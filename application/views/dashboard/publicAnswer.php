@@ -159,6 +159,7 @@ function diffVotes(answerId) {
            <!-- /.card-header -->
            <div class="card-body">
              <h3><?php echo $questionDetails["question"]; ?></h3>
+             <span class="badge badge-secondary"><?php echo $questionDetails["tag"]; ?></span> 
              <?php echo $questionDetails["description"]; ?>
              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-default"><i class="fas fa-share"></i> Share</button>
              <?php if ($user["id"] == $questionDetails["id"]): ?>

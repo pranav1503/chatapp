@@ -42,7 +42,7 @@
 
 
         public function getPublicQuestions($id){
-            $query = $this->db->query("SELECT q.id, q.question, q.date_time, q.anonymity, u.name from public_questions q, users u where q.user = u.id and q.user != $id  order by q.date_time desc;");
+            $query = $this->db->query("SELECT q.id, q.question, q.date_time, q.anonymity, q.tag, u.name from public_questions q, users u where q.user = u.id and q.user != $id  order by q.date_time desc;");
             $info = array();
             if($query->num_rows()>0){
                 foreach ($query->result() as $key => $value) {
@@ -51,6 +51,7 @@
                     "id" => $value->id,
                     "question" => $value->question,
                     "date" => $value->date_time,
+                    "tag" => $value->tag,
                     "asked_by" => ($value->anonymity == 1)?"Anonymous":$value->name,
                     "ansCount" => $query1->result()[0]->ansCount
                   );
@@ -63,7 +64,7 @@
 
 
         public function getPublicQuestionWithID($id){
-            $query = $this->db->query("SELECT u.name, u.id ,q.question, q.date_time, q.anonymity, q.description from users u, public_questions q where q.user = u.id and q.id = $id;");
+            $query = $this->db->query("SELECT u.name, u.id ,q.question, q.date_time, q.anonymity, q.description, q.tag from users u, public_questions q where q.user = u.id and q.id = $id;");
             if($query->num_rows()>0){
                 foreach ($query->result() as $key => $value) {
                   $query1 = $this->db->query("SELECT COUNT(a.id) as ansCount from public_answers as a, public_questions as q where a.question_id=q.id and a.question_id = $id");
@@ -72,6 +73,7 @@
                     "question" => $value->question,
                     "description" => $value->description,
                     "date" => $value->date_time,
+                    "tag" => $value->tag,
                     "asked_by" => ($value->anonymity == 1)?"Anonymous":$value->name,
                     "ansCount" => $query1->result()[0]->ansCount
                   );
@@ -126,8 +128,8 @@
           $this->db->delete('public_questions');
         }
 
-        public function getPublicQuestionsSearch($pattern,$id){
-            $query = $this->db->query("SELECT q.id, q.question, q.date_time, q.anonymity, u.name from public_questions q, users u where q.user = u.id and q.user != $id and q.question like '%$pattern%'  order by q.date_time desc;");
+        public function getPublicQuestionsSearch($pattern,$tagPattern,$id){
+            $query = $this->db->query("SELECT q.id, q.question, q.date_time, q.anonymity, q.tag, u.name from public_questions q, users u where q.user = u.id and q.user != $id and q.question like '%$pattern%' and q.tag like '%$tagPattern%'  order by q.date_time desc;");
             $info = array();
             if($query->num_rows()>0){
                 foreach ($query->result() as $key => $value) {
@@ -136,6 +138,7 @@
                     "id" => $value->id,
                     "question" => $value->question,
                     "date" => $value->date_time,
+                    "tag" => $value->tag,
                     "asked_by" => ($value->anonymity == 1)?"Anonymous":$value->name,
                     "ansCount" => $query1->result()[0]->ansCount
                   );

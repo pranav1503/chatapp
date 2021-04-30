@@ -205,7 +205,7 @@
     <a href="#" class="brand-link">
       <img src="<?php echo base_url(); ?>back_static/images/logo/logo.png" alt="LMDF Logo" class="brand-image img-circle elevation-3"
            style="opacity: 1">
-      <span class="brand-text font-weight-light">Server Monks</span>
+      <span class="brand-text font-weight-light">QUiRiE</span>
     </a>
 
     <!-- Sidebar -->

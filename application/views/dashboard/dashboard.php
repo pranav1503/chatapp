@@ -87,7 +87,7 @@
  <div class="content-header">
    <div class="container-fluid">
      <div class="row mb-2">
-       <div class="col-sm-9">
+       <div class="col-sm-7">
          <h1 class="m-0 text-dark">All Questions</h1>
 
        </div><!-- /.col -->
@@ -99,6 +99,22 @@
                   <i class="fas fa-search"></i>
                 </span>
               </div>
+            </div>
+       </div>
+       <div class="col-sm-2">
+            <div class="input-group input-group-sm float-sm-right">
+              <select class="form-control" name="" id="myTag" onchange="displayQuestions()">
+                <option value="">ALL</option>
+                <option value="java">JAVA</option>
+                <option value="git">GIT</option>
+                <option value="placements">PLACEMENTS</option>
+                <option value="academics">ACADEMICS</option>
+                <option value="python">PYTHON</option>
+                <option value="sql">SQL</option>
+                <option value="c">C</option>
+                <option value="web">WEB</option>
+                <option value="casual">Casual</option>
+              </select>
             </div>
        </div><!-- /.col -->
      </div><!-- /.row -->
@@ -165,7 +181,7 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-9">
-                                    <p style="color:grey">`+ ((public_questions[i].ansCount==0)?`No answers`: ((public_questions[i].ansCount == 1)?(public_questions[i].ansCount+` answer`):(public_questions[i].ansCount+` answers`))) +`</p>
+                                    <p style="color:grey"><span class="badge badge-secondary">`+public_questions[i].tag+` </span> &nbsp;&nbsp;`+ ((public_questions[i].ansCount==0)?`No answers`: ((public_questions[i].ansCount == 1)?(public_questions[i].ansCount+` answer`):(public_questions[i].ansCount+` answers`))) +`</p>
                                     <a href="<?php echo base_url() ?>public/question/`+public_questions[i].id+`" class="btn btn-primary">View Answer(s)&nbsp;&nbsp;&nbsp;<i class="fas fa-hand-point-right"></i></a>
                                   </div>
                                   <div class="col-3">
@@ -209,6 +225,7 @@
       async: false,
       data: {
         "pattern" : $("#searchInput").val(),
+        "tagPattern" : $("#myTag").val(),
         "userId" : <?php echo $user['id']; ?>
       },
       success:function (data) {

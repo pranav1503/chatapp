@@ -189,11 +189,27 @@
                  <div class="form-group">
                    <label>Teacher</label>
                    <div class="autocomplete form-control">
-                    <input id="myInput" type="text" name="myCountry" placeholder="Search..">
+                    <input id="myInput" type="text" name="myCountry" placeholder="Search.." required>
                     <input type="hidden" name="teacher" id="teacher">
                    </div>
                  </div>
                  <!-- /.form-group -->
+               </div>
+               <div class="col-6">
+                 <div class="form-group tag-cluster">
+                   <label>Tags</label>
+                     <select class="form-control" name="" id="myTag">
+                       <option value="java">JAVA</option>
+                       <option value="git">GIT</option>
+                       <option value="placements">PLACEMENTS</option>
+                       <option value="academics">ACADEMICS</option>
+                       <option value="python">PYTHON</option>
+                       <option value="sql">SQL</option>
+                       <option value="c">C</option>
+                       <option value="web">WEB</option>
+                       <option value="casual">Casual</option>
+                     </select>
+                 </div>
                </div>
              </div>
              <div class="row">
@@ -208,7 +224,7 @@
              <div class="row">
                <div class="col-6">
                  <div class="form-group">
-                   <div class="custom-control custom-checkbox">
+                   <div class="custom-control custom-checkbox" id="anonymousDiv">
                      <input class="custom-control-input"type="checkbox" id="anonymousBox" value="option1">
                      <label for="anonymousBox" class="custom-control-label">Ask Anonymously</label>
                    </div>
@@ -225,10 +241,16 @@
                function showTeacher() {
                  var checkBox = document.querySelector(".ask-a-teacher");
                  var teacherCluster = document.querySelector(".teacher-cluster");
+                 var tagCluster = document.querySelector(".tag-cluster");
+                 var askAnonymous = document.getElementById('anonymousDiv');
                  if(checkBox.checked == true){
                    teacherCluster.style.display = "block";
+                   askAnonymous.style.display = "none";
+                   tagCluster.style.display = "none";
                  }else{
                    teacherCluster.style.display = "none";
+                   askAnonymous.style.display = "block";
+                   tagCluster.style.display = "block";
                  }
                }
                function askFun() {
@@ -241,6 +263,7 @@
                      "description" : $(".note-editable").html(),
                      "student" : "<?php echo $user['email_id']; ?>",
                      "studentID" : "<?php echo $user['id']; ?>",
+                     "tag" : $("#myTag").val(),
                      "isPrivate": $(".ask-a-teacher").is(':checked'),
                      "isAnonymous" : $("#anonymousBox").is(':checked'),
                    },
@@ -310,6 +333,7 @@ function autocomplete(inp, arr,tea) {
         }
       }
   });
+
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function(e) {
       var x = document.getElementById(this.id + "autocomplete-list");
